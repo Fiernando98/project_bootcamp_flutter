@@ -42,8 +42,7 @@ class FoodItem extends StatelessWidget {
 
   Widget _itemBody(BuildContext context) {
     return Row(children: [
-      _iconStatus(),
-      SizedBox(width: 15),
+      Padding(padding: EdgeInsets.all(15), child: _iconStatus()),
       Expanded(child: _textsContent(context)),
       _btnSync()
     ]);
@@ -56,6 +55,6 @@ class FoodItem extends StatelessWidget {
         child: InkWell(
             onTap: onTap,
             child: Padding(
-                padding: EdgeInsets.all(15), child: _itemBody(context))));
+                padding: EdgeInsets.all(0), child: _itemBody(context))));
   }
 }
