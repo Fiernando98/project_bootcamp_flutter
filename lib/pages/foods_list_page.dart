@@ -47,13 +47,9 @@ class _FoodsListPageState extends State<FoodsListPage> {
               name: _food.name ?? "",
               calories: _food.calories ?? 0.0,
               onServer: _food.idServer != null,
-              onTapSync: _food.idServer != null
+              onTapSync: (_food.idServer != null)
                   ? null
-                  : () async {
-                      _food.idServer = Random().nextInt(99999);
-                      _editFoodDB(_food);
-                      _readDataBase();
-                    });
+                  : () => _simulateUploadFood(_food));
         });
   }
 
@@ -87,6 +83,12 @@ class _FoodsListPageState extends State<FoodsListPage> {
     } catch (error) {
       snackMesage(message: error.toString(), context: context, isError: true);
     }
+  }
+
+  void _simulateUploadFood(Food _food) async {
+    _food.idServer = Random().nextInt(999999);
+    _editFoodDB(_food);
+    _readDataBase();
   }
 
   Future<void> _editFoodDB(final Food food) async {
