@@ -34,13 +34,15 @@ class _CreateFoodFormPageState extends State<CreateFoodFormPage> {
             keyboardType: TextInputType.name,
             style: TextStyle(fontWeight: FontWeight.bold),
             onSaved: (val) => _name = val ?? "",
-            validator: (val) => (val!.isNotEmpty) ? null : "Issue in Name",
+            validator: (val) => (val!.isNotEmpty)
+                ? null
+                : "${Translates.of(context)!.issueInName}",
             decoration: InputDecoration(
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                 prefixIcon: Icon(Icons.fastfood),
-                labelText: "Food name",
-                hintText: "Enter a food name")));
+                labelText: "${Translates.of(context)!.foodName}",
+                hintText: "${Translates.of(context)!.enterFoodName}")));
   }
 
   Widget _inputCalories() {
@@ -50,13 +52,15 @@ class _CreateFoodFormPageState extends State<CreateFoodFormPage> {
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             style: TextStyle(fontWeight: FontWeight.bold),
             onSaved: (val) => _calories = val ?? "",
-            validator: (val) => (val!.isNotEmpty) ? null : "Issue in Calories",
+            validator: (val) => (val!.isNotEmpty)
+                ? null
+                : "${Translates.of(context)!.issueInCalories}",
             decoration: InputDecoration(
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                 prefixIcon: Icon(Icons.countertops),
-                labelText: "Calories",
-                hintText: "Enter calories")));
+                labelText: "${Translates.of(context)!.calories}",
+                hintText: "${Translates.of(context)!.enterCalories}")));
   }
 
   Widget _formPage() {
@@ -84,7 +88,9 @@ class _CreateFoodFormPageState extends State<CreateFoodFormPage> {
             name: _name,
             calories: double.tryParse(_calories));
         await _insertDatabase(_food);
-        snackMesage(message: "Successfully Saved Food", context: context);
+        snackMesage(
+            message: "${Translates.of(context)!.successfullySavedFood}",
+            context: context);
         Navigator.of(context).pop();
       } catch (error) {
         snackMesage(
@@ -92,7 +98,9 @@ class _CreateFoodFormPageState extends State<CreateFoodFormPage> {
       }
     } else {
       snackMesage(
-          message: "Error Inside the Form", context: context, isError: true);
+          message: "${Translates.of(context)!.errorInsideTheForm}",
+          context: context,
+          isError: true);
     }
   }
 

@@ -20,4 +20,18 @@ abstract class Translates {
   String get save;
 
   String get calories;
+
+  String get errorInsideTheForm;
+
+  String get successfullySavedFood;
+
+  String get foodName;
+
+  String get issueInName;
+
+  String get enterFoodName;
+
+  String get enterCalories;
+
+  String get issueInCalories;
 }

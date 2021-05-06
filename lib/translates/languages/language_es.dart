@@ -25,4 +25,25 @@ class LanguageEs extends Translates {
 
   @override
   String get calories => "Calorías";
+
+  @override
+  String get errorInsideTheForm => "Error Dentro del Formulario";
+
+  @override
+  String get successfullySavedFood => "Alimento Guardado Exitosamente";
+
+  @override
+  String get foodName => "Nombre de Alimento";
+
+  @override
+  String get issueInName => "Error en Nombre de Alimento";
+
+  @override
+  String get enterFoodName => "Introduce Nombre de Alimento";
+
+  @override
+  String get enterCalories => "Introduce Calorías";
+
+  @override
+  String get issueInCalories => "Error en Calorías";
 }
