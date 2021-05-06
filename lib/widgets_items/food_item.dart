@@ -5,13 +5,15 @@ class FoodItem extends StatelessWidget {
   final String name;
   final double calories;
   final bool onServer;
-  final Function? onTap;
+  final GestureTapCallback? onTap;
+  final GestureTapCallback? onTapSync;
 
   FoodItem(
       {required this.name,
       required this.calories,
       this.onServer = false,
-      this.onTap});
+      this.onTap,
+      this.onTapSync});
 
   Widget _iconStatus() {
     return Icon((onServer) ? Icons.cloud : Icons.sd_storage);
@@ -33,9 +35,18 @@ class FoodItem extends StatelessWidget {
         children: [_txtName(), _txtCalories(context)]);
   }
 
+  Widget _btnSync() {
+    if (onTapSync == null) return Container();
+    return IconButton(onPressed: onTapSync, icon: Icon(Icons.cloud_upload));
+  }
+
   Widget _itemBody(BuildContext context) {
-    return Row(
-        children: [_iconStatus(), SizedBox(width: 15), _textsContent(context)]);
+    return Row(children: [
+      _iconStatus(),
+      SizedBox(width: 15),
+      Expanded(child: _textsContent(context)),
+      _btnSync()
+    ]);
   }
 
   @override
@@ -43,7 +54,7 @@ class FoodItem extends StatelessWidget {
     return Material(
         type: MaterialType.transparency,
         child: InkWell(
-            onTap: () => onTap,
+            onTap: onTap,
             child: Padding(
                 padding: EdgeInsets.all(15), child: _itemBody(context))));
   }

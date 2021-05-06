@@ -104,7 +104,7 @@ class _CreateFoodFormPageState extends State<CreateFoodFormPage> {
     }
   }
 
-  Future<void> _insertDatabase(Food food) async {
+  Future<void> _insertDatabase(final Food food) async {
     final Database? db = await DataBaseHelper.db.database;
     await db!.insert(DBTables().food, food.toMapSQL());
   }

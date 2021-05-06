@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_bootcamp_flutter/models/food.dart';
@@ -37,13 +39,21 @@ class _FoodsListPageState extends State<FoodsListPage> {
                       color: Colors.grey))));
 
     return ListView.separated(
-        separatorBuilder: (context, index) =>
-            Divider(height: 0, thickness: 2),
+        separatorBuilder: (context, index) => Divider(height: 0, thickness: 2),
         itemCount: _list!.length,
         itemBuilder: (context, index) {
           Food _food = _list![index];
           return FoodItem(
-              name: _food.name ?? "", calories: _food.calories ?? 0.0);
+              name: _food.name ?? "",
+              calories: _food.calories ?? 0.0,
+              onServer: _food.idServer != null,
+              onTapSync: _food.idServer != null
+                  ? null
+                  : () async {
+                      _food.idServer = Random().nextInt(99999);
+                      _editFoodDB(_food);
+                      _readDataBase();
+                    });
         });
   }
 
@@ -77,5 +87,11 @@ class _FoodsListPageState extends State<FoodsListPage> {
     } catch (error) {
       snackMesage(message: error.toString(), context: context, isError: true);
     }
+  }
+
+  Future<void> _editFoodDB(final Food food) async {
+    final Database? db = await DataBaseHelper.db.database;
+    await db!.update(DBTables().food, food.toMapSQL(),
+        where: "id = ?", whereArgs: [food.id]);
   }
 }
